@@ -65,4 +65,12 @@ class RoomController extends Controller
             ->with('success', 'Ruangan berhasil ditambahkan');
     }
 
+    public function delete($parameter)
+    {
+        $data = Room::where('uuid', $parameter);
+        $data->delete();
+         return redirect()->route('room.index')
+            ->with('success', 'Ruangan berhasil ditambahkan');
+    }
+
 }

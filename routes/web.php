@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/rooms', [RoomController::class, 'store'])->name('room.store');
     Route::get('/room/{param}', [RoomController::class, 'show'])->name('room.show');
     Route::put('/room/{param}', [RoomController::class, 'update'])->name('room.update');
+    Route::delete('/room/{param}', [RoomController::class, 'delete'])->name('room.delete');
 
 });
 

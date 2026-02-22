@@ -4,16 +4,31 @@
             <h2 class="font-bold text-2xl text-slate-800 dark:text-slate-200 leading-tight">
                 {{ __('Daftar Ruangan') }}
             </h2>
-            <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-room')"
-                class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-blue-200 dark:shadow-none transition-all duration-300 transform hover:scale-105">
-                Edit Ruangan
-            </button>
+            <div class="">
+
+                <form action="{{ route('room.delete', $data->uuid) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit"
+                        class="bg-gradient-to-r from-red-600 to-orange-600 me-4
+                    hover:from-red-700 hover:to-orange-700 text-white px-6 py-2.5 rounded-xl text-sm 
+                    font-bold shadow-lg shadow-red-200 dark:shadow-none transition-all duration-300 transform hover:scale-105">Hapus</button>
+
+                    <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-room')"
+                        class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-blue-200 dark:shadow-none transition-all duration-300 transform hover:scale-105">
+                        Edit Ruangan
+                    </button>
+
+                </form>
+            </div>
+
         </div>
     </x-slot>
 
     <div class="py-12 bg-[#F8FAFC] dark:bg-slate-950 min-h-screen transition-colors duration-500">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
-            <div class="bg-white dark:bg-slate-900 py-8 px-8 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+            <div
+                class="bg-white dark:bg-slate-900 py-8 px-8 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
                 <h4 class="text-lg text-slate-600 dark:text-slate-400 font-bold">Detail Ruangan</h4>
                 <span class="text-md text-slate-600 dark:text-slate-400">{{ $data->room_name }}</span>
                 <div class="mt-8">
@@ -77,11 +92,11 @@
                                     </td>
                                 </tr>
                             @empty
-                            <tr class="group hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors">
-                                <td class="px-8 py-6 text-slate-600 dark:text-slate-400 text-center" colspan="4">
-                                    Data barang tidak ditemukan
-                                </td>
-                            </tr>
+                                <tr class="group hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors">
+                                    <td class="px-8 py-6 text-slate-600 dark:text-slate-400 text-center" colspan="4">
+                                        Data barang tidak ditemukan
+                                    </td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -95,7 +110,7 @@
             <div class="flex items-center justify-between mb-8">
                 <div>
                     <h2 class="text-xl font-black text-slate-800 dark:text-white">
-                        Ubah Ruangan 
+                        Ubah Ruangan
                     </h2>
                     <p class="text-sm text-slate-400 dark:text-slate-500 mt-1">{{ $data->room_name }}</p>
                 </div>
