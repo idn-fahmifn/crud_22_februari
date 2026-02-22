@@ -16,6 +16,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/rooms', [RoomController::class, 'index'])->name('room.index');
     Route::post('/rooms', [RoomController::class, 'store'])->name('room.store');
     Route::get('/room/{param}', [RoomController::class, 'show'])->name('room.show');
+    Route::put('/room/{param}', [RoomController::class, 'update'])->name('room.update');
 
 });
 

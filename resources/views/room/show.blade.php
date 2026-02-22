@@ -6,7 +6,7 @@
             </h2>
             <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-room')"
                 class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-blue-200 dark:shadow-none transition-all duration-300 transform hover:scale-105">
-                + Tambah Ruangan
+                Edit Ruangan
             </button>
         </div>
     </x-slot>
@@ -95,10 +95,9 @@
             <div class="flex items-center justify-between mb-8">
                 <div>
                     <h2 class="text-xl font-black text-slate-800 dark:text-white">
-                        Tambah Ruangan Baru
+                        Ubah Ruangan 
                     </h2>
-                    <p class="text-sm text-slate-400 dark:text-slate-500 mt-1">Daftarkan lokasi penyimpanan aset baru
-                        Anda.</p>
+                    <p class="text-sm text-slate-400 dark:text-slate-500 mt-1">{{ $data->room_name }}</p>
                 </div>
                 <div class="p-3 rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-blue-500">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,13 +107,13 @@
                 </div>
             </div>
 
-            <form method="post" action="{{ route('room.store') }}" class="space-y-6">
+            <form method="post" action="{{ route('room.update', $data->uuid) }}" class="space-y-6">
                 @csrf
-
+                @method('put')
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <x-input-label for="name" value="Nama Ruangan" class="dark:text-slate-400" />
-                        <x-text-input id="name" name="name" type="text"
+                        <x-text-input id="name" name="name" value="{{ $data->room_name }}" type="text"
                             class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl"
                             placeholder="Contoh: Ruang IT" />
                     </div>
@@ -124,9 +123,9 @@
                         <select id="size" name="size"
                             class="mt-1 block w-full border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm">
                             <option disabled>Pilih Ukuran</option>
-                            <option value="small">Small</option>
-                            <option value="medium">Medium</option>
-                            <option value="large">Large</option>
+                            <option value="small" @selected($data->size === 'small')>Small</option>
+                            <option value="medium @selected($data->size === 'medium')">Medium</option>
+                            <option value="large" @selected($data->size === 'large')>Large</option>
                         </select>
                     </div>
                 </div>
