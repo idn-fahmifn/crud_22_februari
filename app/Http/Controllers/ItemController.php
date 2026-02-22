@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Room;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-class RoomController extends Controller
+class ItemController extends Controller
 {
     public function index()
     {
-        $data = Room::withCount('item')->paginate(10);
-        return view('room.index', compact('data'));
+        $data = Item::paginate(10);
+        $room = Room::all();
+        return view('item.index', compact('data', 'room'));
     }
 
     public function store(Request $request)
@@ -72,5 +72,4 @@ class RoomController extends Controller
         return redirect()->route('room.index')
             ->with('success', 'Ruangan berhasil ditambahkan');
     }
-
 }

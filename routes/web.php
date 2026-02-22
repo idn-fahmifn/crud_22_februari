@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/room/{param}', [RoomController::class, 'show'])->name('room.show');
     Route::put('/room/{param}', [RoomController::class, 'update'])->name('room.update');
     Route::delete('/room/{param}', [RoomController::class, 'delete'])->name('room.delete');
+
+    Route::get('/items', [ItemController::class, 'index'])->name('item.index');
+    Route::post('/items', [ItemController::class, 'store'])->name('item.store');
+    Route::get('/item/{param}', [ItemController::class, 'show'])->name('item.show');
+    Route::put('/item/{param}', [ItemController::class, 'update'])->name('item.update');
+    Route::delete('/item/{param}', [ItemController::class, 'delete'])->name('item.delete');
 
 });
 
