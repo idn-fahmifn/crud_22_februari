@@ -59,7 +59,13 @@
                                         </a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                            <tr class="group hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors">
+                                <td class="px-8 py-6 text-slate-600 dark:text-slate-400 text-center" colspan="4">
+                                    Data barang tidak ditemukan
+                                </td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
