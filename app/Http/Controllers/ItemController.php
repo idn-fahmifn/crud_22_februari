@@ -42,18 +42,23 @@ class ItemController extends Controller
 
         if ($request->hasFile('image')) {
             $gambar = $request->file('image');
-            $nama = 'item_image_' . Carbon::now('Asia/jakarta')->format('Ymdhis').'.'.$gambar->getClientOriginalExtension();
-
+            $path = 'public/images/items';
+            $nama = 'item_image_' . Carbon::now('Asia/jakarta')
+            ->format('Ymdhis').'.'.$gambar
+            ->getClientOriginalExtension();
             // nama yang dikirim ke database
             $save['image'] = $nama;
+
+            // simpan ke storage : 
+            $gambar->storeAs($path, $nama);
         }
 
-        return $save;
+        // return $save;
 
-        // Room::create($save);
+        Item::create($save);
 
-        // return redirect()->route('room.index')
-        //     ->with('success', 'Ruangan berhasil ditambahkan');
+        return redirect()->route('item.index')
+            ->with('success', 'Barang berhasil ditambahkan');
     }
 
     public function show($parameter)

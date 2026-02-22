@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <form method="post" action="{{ route('item.store') }}" class="space-y-6">
+            <form method="post" action="{{ route('item.store') }}" class="space-y-6" enctype="multipart/form-data">
                 @csrf
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -116,7 +116,7 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <x-input-label for="size" value="Lokasi" class="dark:text-slate-400" />
+                        <x-input-label for="lokasi" value="Lokasi" class="dark:text-slate-400" />
                         <select id="lokasi" name="lokasi"
                             class="mt-1 block w-full border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm">
                             <option disabled>Pilih Lokasi</option>
@@ -139,7 +139,7 @@
                 </div>
 
                 <div>
-                    <x-input-label for="stok" value="Nama Barang" class="dark:text-slate-400" />
+                    <x-input-label for="stok" value="Stok Barang" class="dark:text-slate-400" />
                     <x-text-input id="stok" name="stok" type="number"
                         class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl"
                         placeholder="" />
