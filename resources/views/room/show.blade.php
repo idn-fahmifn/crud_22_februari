@@ -12,8 +12,25 @@
     </x-slot>
 
     <div class="py-12 bg-[#F8FAFC] dark:bg-slate-950 min-h-screen transition-colors duration-500">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
+            <div class="bg-white dark:bg-slate-900 py-8 px-8 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+                <h4 class="text-lg text-slate-600 dark:text-slate-400 font-bold">Detail Ruangan</h4>
+                <span class="text-md text-slate-600 dark:text-slate-400">{{ $data->room_name }}</span>
+                <div class="mt-8">
+                    <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Nama Ruangan</p>
+                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->room_name }}</span>
+                </div>
+                <div class="mt-2">
+                    <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Total Aset</p>
+                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->item_count }}</span>
+                </div>
+                <div class="mt-2">
+                    <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Kapasitas</p>
+                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->size }}</span>
+                </div>
+            </div>
+        </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
             <div
                 class="bg-white dark:bg-slate-900 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
                 <div class="overflow-x-auto">
