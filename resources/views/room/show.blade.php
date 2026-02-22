@@ -9,7 +9,7 @@
                 <form action="{{ route('room.delete', $data->uuid) }}" method="post">
                     @csrf
                     @method('delete')
-                    <button type="submit"
+                    <button type="submit" onclick="return confirm('Yakin hapus data?')"
                         class="bg-gradient-to-r from-red-600 to-orange-600 me-4
                     hover:from-red-700 hover:to-orange-700 text-white px-6 py-2.5 rounded-xl text-sm 
                     font-bold shadow-lg shadow-red-200 dark:shadow-none transition-all duration-300 transform hover:scale-105">Hapus</button>
