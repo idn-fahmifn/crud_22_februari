@@ -50,7 +50,7 @@
                                         </span>
                                     </td>
                                     <td class="px-8 py-6 text-right">
-                                        <a href="{{ route('room.show', $item->uuid) }}"
+                                        <a href="{{ route('item.show', $item->uuid) }}"
                                             class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mx-2">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">

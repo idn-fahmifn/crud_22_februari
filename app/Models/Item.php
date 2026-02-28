@@ -9,4 +9,9 @@ class Item extends Model
     protected $fillable = [
         'uuid', 'room_id', 'item_name', 'category', 'condition', 'image', 'stok'
     ];
+
+    public function room(){
+        return $this->belongsTo(Room::class, 'room_id');
+    }
+
 }

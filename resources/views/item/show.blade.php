@@ -2,11 +2,11 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-bold text-2xl text-slate-800 dark:text-slate-200 leading-tight">
-                {{ __('Daftar Ruangan') }}
+                {{ __('Detail Barang') }}
             </h2>
             <div class="">
 
-                <form action="{{ route('room.delete', $data->uuid) }}" method="post">
+                <form action="{{ route('item.delete', $data->uuid) }}" method="post">
                     @csrf
                     @method('delete')
                     <button type="submit" onclick="return confirm('Yakin hapus data?')"
@@ -16,7 +16,7 @@
 
                     <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-room')"
                         class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-blue-200 dark:shadow-none transition-all duration-300 transform hover:scale-105">
-                        Edit Ruangan
+                        Edit Barang
                     </button>
 
                 </form>
@@ -29,19 +29,27 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
             <div
                 class="bg-white dark:bg-slate-900 py-8 px-8 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
-                <h4 class="text-lg text-slate-600 dark:text-slate-400 font-bold">Detail Ruangan</h4>
-                <span class="text-md text-slate-600 dark:text-slate-400">{{ $data->room_name }}</span>
+                <h4 class="text-lg text-slate-600 dark:text-slate-400 font-bold">Detail Barang</h4>
+                <span class="text-md text-slate-600 dark:text-slate-400">{{ $data->item_name }}</span>
                 <div class="mt-8">
-                    <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Nama Ruangan</p>
-                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->room_name }}</span>
+                    <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Nama Barang</p>
+                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->item_name }}</span>
                 </div>
                 <div class="mt-2">
-                    <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Total Aset</p>
-                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->item_count }}</span>
+                    <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Lokasi</p>
+                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->room->room_name }}</span>
                 </div>
                 <div class="mt-2">
-                    <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Kapasitas</p>
-                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->size }}</span>
+                    <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Stok</p>
+                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->stok }}</span>
+                </div>
+                <div class="mt-2">
+                    <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Kategori</p>
+                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->category }}</span>
+                </div>
+                <div class="mt-2">
+                    <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Kondisi</p>
+                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->condition }}</span>
                 </div>
             </div>
         </div>
@@ -49,57 +57,10 @@
             <div
                 class="bg-white dark:bg-slate-900 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr
-                                class="text-slate-400 dark:text-slate-500 text-[10px] uppercase tracking-[0.2em] font-black bg-slate-50/50 dark:bg-slate-800/50">
-                                <th class="px-8 py-5">Nama Barang</th>
-                                <th class="px-8 py-5">Stok</th>
-                                <th class="px-8 py-5">Kondisi</th>
-                                <th class="px-8 py-5 text-right">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-50 dark:divide-slate-800">
-                            @forelse ($items as $item)
-                                <tr class="group hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors">
-                                    <td class="px-8 py-6">
-                                        <span class="text-sm text-slate-600 dark:text-slate-400 px-3 py-1 rounded-lg">
-                                            {{ $item->item_name }}
-                                        </span>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <span class="text-sm text-slate-600 dark:text-slate-400 px-3 py-1 rounded-lg">
-                                            {{ $item->stok }} Barang
-                                        </span>
-                                    </td>
-                                    <td class="px-8 py-6">
-                                        <span
-                                            class="inline-flex items-center text-[10px] font-black uppercase tracking-widest {{ $item->condition === 'good' ? 'text-emerald-500' : ($item->condition === 'maintenance' ? 'text-amber-500' : 'text-rose-500') }}">
-                                            <span
-                                                class="w-2 h-2 rounded-full mr-2 animate-pulse {{ $item->condition === 'good' ? 'bg-emerald-500' : ($item->condition === 'maintenance' ? 'bg-amber-500' : 'bg-rose-500') }}"></span>
-                                            {{ $item->condition }}
-                                        </span>
-                                    </td>
-                                    <td class="px-8 py-6 text-right">
-                                        <a href="{{ route('room.show', $item->uuid) }}"
-                                            class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mx-2">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                            </svg>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr class="group hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors">
-                                    <td class="px-8 py-6 text-slate-600 dark:text-slate-400 text-center" colspan="4">
-                                        Data barang tidak ditemukan
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                    <div class="p-8">
+                        <img src="{{ asset('storage/images/items/' . $data->image) }}" alt="gambar item"
+                            class="img-fluid w-3/4">
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,27 +83,63 @@
                 </div>
             </div>
 
-            <form method="post" action="{{ route('room.update', $data->uuid) }}" class="space-y-6">
+            <form method="post" action="{{ route('item.update', $data->uuid) }}" class="space-y-6">
                 @csrf
                 @method('put')
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <x-input-label for="name" value="Nama Ruangan" class="dark:text-slate-400" />
-                        <x-text-input id="name" name="name" value="{{ $data->room_name }}" type="text"
+                        <x-input-label for="name" value="Nama Barang" class="dark:text-slate-400" />
+                        <x-text-input id="name" name="name" type="text"
                             class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl"
                             placeholder="Contoh: Ruang IT" />
                     </div>
 
                     <div>
-                        <x-input-label for="size" value="Ukuran" class="dark:text-slate-400" />
-                        <select id="size" name="size"
+                        <x-input-label for="size" value="Kategori" class="dark:text-slate-400" />
+                        <select id="category" name="category"
                             class="mt-1 block w-full border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm">
-                            <option disabled>Pilih Ukuran</option>
-                            <option value="small" @selected($data->size === 'small')>Small</option>
-                            <option value="medium @selected($data->size === 'medium')">Medium</option>
-                            <option value="large" @selected($data->size === 'large')>Large</option>
+                            <option disabled>Pilih kategori</option>
+                            <option value="elektronik">elektronik</option>
+                            <option value="kendaraan">kendaraan</option>
+                            <option value="rumah tangga">rumah tangga</option>
+                            <option value="lainnya">lainnya</option>
                         </select>
                     </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <x-input-label for="lokasi" value="Lokasi" class="dark:text-slate-400" />
+                        <select id="lokasi" name="lokasi"
+                            class="mt-1 block w-full border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm">
+                            <option disabled>Pilih Lokasi</option>
+                            {{-- looping semua data room --}}
+                            @foreach ($room as $row)
+                                <option value="{{ $row->id }}">{{ $row->room_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <x-input-label for="size" value="Kondisi" class="dark:text-slate-400" />
+                        <select id="kondisi" name="kondisi"
+                            class="mt-1 block w-full border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm">
+                            <option disabled>Pilih Kondisi</option>
+                            <option value="good">good</option>
+                            <option value="broke">broke</option>
+                            <option value="maintenance">maintenance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <x-input-label for="stok" value="Stok Barang" class="dark:text-slate-400" />
+                    <x-text-input id="stok" name="stok" type="number"
+                        class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl" placeholder="" />
+                </div>
+
+                <div>
+                    <x-input-label for="image" value="Gambar Barang" class="dark:text-slate-400" />
+                    <x-text-input id="image" name="image" type="file"
+                        class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl p-4" />
                 </div>
                 <div class="mt-8 flex justify-end gap-3">
                     <button type="button" x-on:click="$dispatch('close')"
