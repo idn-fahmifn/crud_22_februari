@@ -27,6 +27,15 @@
 
     <div class="py-12 bg-[#F8FAFC] dark:bg-slate-950 min-h-screen transition-colors duration-500">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
+
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <p class="text-white">
+                        {{ $error }}
+                    </p>
+                @endforeach
+            @endif
+
             <div
                 class="bg-white dark:bg-slate-900 py-8 px-8 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
                 <h4 class="text-lg text-slate-600 dark:text-slate-400 font-bold">Detail Barang</h4>
@@ -83,13 +92,13 @@
                 </div>
             </div>
 
-            <form method="post" action="{{ route('item.update', $data->uuid) }}" class="space-y-6">
+            <form method="post" action="{{ route('item.update', $data->uuid) }}" enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 @method('put')
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <x-input-label for="name" value="Nama Barang" class="dark:text-slate-400" />
-                        <x-text-input id="name" name="name" type="text"
+                        <x-text-input id="name" name="name" type="text" :value="old('name', $data->item_name)"
                             class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl"
                             placeholder="Contoh: Ruang IT" />
                     </div>
@@ -99,9 +108,9 @@
                         <select id="category" name="category"
                             class="mt-1 block w-full border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm">
                             <option disabled>Pilih kategori</option>
-                            <option value="elektronik">elektronik</option>
-                            <option value="kendaraan">kendaraan</option>
-                            <option value="rumah tangga">rumah tangga</option>
+                            <option value="elektronik" @selected($data->category === 'elektronik')>elektronik</option>
+                            <option value="kendaraan" @selected($data->category === 'kendaraan')>kendaraan</option>
+                            <option value="rumah tangga" @selected($data->category === 'rumah tangga')>rumah tangga</option>
                             <option value="lainnya">lainnya</option>
                         </select>
                     </div>
@@ -114,7 +123,7 @@
                             <option disabled>Pilih Lokasi</option>
                             {{-- looping semua data room --}}
                             @foreach ($room as $row)
-                                <option value="{{ $row->id }}">{{ $row->room_name }}</option>
+                                <option value="{{ $row->id }}" @selected(old('room_id', $data->room_id) == $row->id)>{{ $row->room_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -123,16 +132,16 @@
                         <select id="kondisi" name="kondisi"
                             class="mt-1 block w-full border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm">
                             <option disabled>Pilih Kondisi</option>
-                            <option value="good">good</option>
-                            <option value="broke">broke</option>
-                            <option value="maintenance">maintenance</option>
+                            <option value="good" @selected($data->condition === 'good')>good</option>
+                            <option value="broke" @selected($data->condition === 'broke')>broke</option>
+                            <option value="maintenance" @selected($data->condition === 'maintenance')>maintenance</option>
                         </select>
                     </div>
                 </div>
 
                 <div>
                     <x-input-label for="stok" value="Stok Barang" class="dark:text-slate-400" />
-                    <x-text-input id="stok" name="stok" type="number"
+                    <x-text-input id="stok" name="stok" type="number" :value="old('stok', $data->stok)"
                         class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl" placeholder="" />
                 </div>
 
