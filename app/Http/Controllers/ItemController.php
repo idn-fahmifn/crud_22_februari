@@ -23,7 +23,7 @@ class ItemController extends Controller
         // Validasi
         $request->validate([
             'name' => ['required', 'string', 'min:4', 'max:20'],
-            'category' => ['required', 'in:elektronik,kendaraan,rumah tangga, lainnya'],
+            'category' => ['required', 'in:elektronik,kendaraan,rumah tangga,lainnya'],
             'lokasi' => ['required', 'integer', 'exists:rooms,id'],
             'kondisi' => ['required', 'in:good,broke,maintenance'],
             'stok' => ['required', 'integer', 'min:0', 'max:999'],
@@ -75,7 +75,7 @@ class ItemController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'min:4', 'max:20'],
-            'category' => ['required', 'in:elektronik,kendaraan,rumah tangga, lainnya'],
+            'category' => ['required', 'in:elektronik,kendaraan,rumah tangga,lainnya'],
             'lokasi' => ['required', 'integer', 'exists:rooms,id'],
             'kondisi' => ['required', 'in:good,broke,maintenance'],
             'stok' => ['required', 'integer', 'min:0', 'max:999'],
@@ -124,7 +124,7 @@ class ItemController extends Controller
     public function delete($parameter)
     {
         $data = Item::where('uuid', $parameter)->firstOrFail();
-        
+
         $path_lama = 'public/images/items/' . $data->image;
 
             if ($data->image && Storage::exists($path_lama)) {

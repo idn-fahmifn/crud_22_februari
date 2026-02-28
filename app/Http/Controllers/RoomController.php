@@ -40,7 +40,7 @@ class RoomController extends Controller
     {
         $data = Room::where('uuid', $parameter)->withCount('item')->firstOrFail();
         // ada barang apa saja di ruangan yang kita pilih
-        $items = Item::where('uuid', $parameter)->get();
+        $items = Item::where('room_id', $data->id)->get();
         return view('room.show', compact('data', 'items'));
     }
 
