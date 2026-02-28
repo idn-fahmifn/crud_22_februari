@@ -94,6 +94,7 @@
                         <x-text-input id="name" name="name" type="text"
                             class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl"
                             placeholder="Contoh: Ruang IT" />
+                            <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     </div>
 
                     <div>
@@ -105,6 +106,7 @@
                             <option value="medium">Medium</option>
                             <option value="large">Large</option>
                         </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('size')" />
                     </div>
                 </div>
                 <div class="mt-8 flex justify-end gap-3">

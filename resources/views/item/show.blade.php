@@ -46,7 +46,14 @@
                 </div>
                 <div class="mt-2">
                     <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Lokasi</p>
-                    <span class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->room->room_name }}</span>
+
+                    @if ($data->room_id == null)
+                        <span class="text-md text-slate-600 dark:text-slate-400 font-sm">Lokasi tidak ditemukan.</span>
+                    @else
+                        <span
+                            class="text-md text-slate-600 dark:text-slate-400 font-sm">{{ $data->room->room_name }}</span>
+                    @endif
+
                 </div>
                 <div class="mt-2">
                     <p class="text-md text-slate-600 dark:text-slate-400 font-bold">Stok</p>
@@ -92,7 +99,8 @@
                 </div>
             </div>
 
-            <form method="post" action="{{ route('item.update', $data->uuid) }}" enctype="multipart/form-data" class="space-y-6">
+            <form method="post" action="{{ route('item.update', $data->uuid) }}" enctype="multipart/form-data"
+                class="space-y-6">
                 @csrf
                 @method('put')
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -101,6 +109,7 @@
                         <x-text-input id="name" name="name" type="text" :value="old('name', $data->item_name)"
                             class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl"
                             placeholder="Contoh: Ruang IT" />
+                        <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     </div>
 
                     <div>
@@ -113,6 +122,7 @@
                             <option value="rumah tangga" @selected($data->category === 'rumah tangga')>rumah tangga</option>
                             <option value="lainnya">lainnya</option>
                         </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('category')" />
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -123,9 +133,11 @@
                             <option disabled>Pilih Lokasi</option>
                             {{-- looping semua data room --}}
                             @foreach ($room as $row)
-                                <option value="{{ $row->id }}" @selected(old('room_id', $data->room_id) == $row->id)>{{ $row->room_name }}</option>
+                                <option value="{{ $row->id }}" @selected(old('room_id', $data->room_id) == $row->id)>{{ $row->room_name }}
+                                </option>
                             @endforeach
                         </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('lokasi')" />
                     </div>
                     <div>
                         <x-input-label for="size" value="Kondisi" class="dark:text-slate-400" />
@@ -136,6 +148,7 @@
                             <option value="broke" @selected($data->condition === 'broke')>broke</option>
                             <option value="maintenance" @selected($data->condition === 'maintenance')>maintenance</option>
                         </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('size')" />
                     </div>
                 </div>
 
@@ -143,12 +156,14 @@
                     <x-input-label for="stok" value="Stok Barang" class="dark:text-slate-400" />
                     <x-text-input id="stok" name="stok" type="number" :value="old('stok', $data->stok)"
                         class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl" placeholder="" />
+                    <x-input-error class="mt-2" :messages="$errors->get('stok')" />
                 </div>
 
                 <div>
                     <x-input-label for="image" value="Gambar Barang" class="dark:text-slate-400" />
                     <x-text-input id="image" name="image" type="file"
                         class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl p-4" />
+                    <x-input-error class="mt-2" :messages="$errors->get('image')" />
                 </div>
                 <div class="mt-8 flex justify-end gap-3">
                     <button type="button" x-on:click="$dispatch('close')"

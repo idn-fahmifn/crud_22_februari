@@ -25,7 +25,7 @@ class ItemController extends Controller
             'name' => ['required', 'string', 'min:4', 'max:20'],
             'category' => ['required', 'in:elektronik,kendaraan,rumah tangga, lainnya'],
             'lokasi' => ['required', 'integer', 'exists:rooms,id'],
-            'kondisi' => ['required', 'in:good,broke, maintenance'],
+            'kondisi' => ['required', 'in:good,broke,maintenance'],
             'stok' => ['required', 'integer', 'min:0', 'max:999'],
             'image' => ['required', 'file', 'max:10240', 'mimes:png,jpg,webp,svg'],
 
@@ -77,7 +77,7 @@ class ItemController extends Controller
             'name' => ['required', 'string', 'min:4', 'max:20'],
             'category' => ['required', 'in:elektronik,kendaraan,rumah tangga, lainnya'],
             'lokasi' => ['required', 'integer', 'exists:rooms,id'],
-            'kondisi' => ['required', 'in:good,broke, maintenance'],
+            'kondisi' => ['required', 'in:good,broke,maintenance'],
             'stok' => ['required', 'integer', 'min:0', 'max:999'],
             'image' => ['file', 'max:10240', 'mimes:png,jpg,webp,svg'],
 
@@ -123,9 +123,15 @@ class ItemController extends Controller
 
     public function delete($parameter)
     {
-        $data = Room::where('uuid', $parameter);
+        $data = Item::where('uuid', $parameter)->firstOrFail();
+        
+        $path_lama = 'public/images/items/' . $data->image;
+
+            if ($data->image && Storage::exists($path_lama)) {
+                Storage::delete($path_lama);
+            }
         $data->delete();
-        return redirect()->route('room.index')
-            ->with('success', 'Ruangan berhasil ditambahkan');
+        return redirect()->route('item.index')
+            ->with('success', 'Barang berhasil dihapus');
     }
 }

@@ -131,6 +131,7 @@
                         <x-text-input id="name" name="name" value="{{ $data->room_name }}" type="text"
                             class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl"
                             placeholder="Contoh: Ruang IT" />
+                            <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     </div>
 
                     <div>
@@ -142,6 +143,7 @@
                             <option value="medium @selected($data->size === 'medium')">Medium</option>
                             <option value="large" @selected($data->size === 'large')>Large</option>
                         </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('size')" />
                     </div>
                 </div>
                 <div class="mt-8 flex justify-end gap-3">

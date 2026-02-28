@@ -100,6 +100,7 @@
                         <x-text-input id="name" name="name" type="text"
                             class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl"
                             placeholder="Contoh: Ruang IT" />
+                            <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     </div>
 
                     <div>
@@ -112,6 +113,7 @@
                             <option value="rumah tangga">rumah tangga</option>
                             <option value="lainnya">lainnya</option>
                         </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('category')" />
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -125,6 +127,7 @@
                                 <option value="{{ $row->id }}">{{ $row->room_name }}</option>
                             @endforeach
                         </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('lokasi')" />
                     </div>
                     <div>
                         <x-input-label for="size" value="Kondisi" class="dark:text-slate-400" />
@@ -135,6 +138,7 @@
                             <option value="broke">broke</option>
                             <option value="maintenance">maintenance</option>
                         </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('kondisi')" />
                     </div>
                 </div>
 
@@ -143,12 +147,14 @@
                     <x-text-input id="stok" name="stok" type="number"
                         class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl"
                         placeholder="" />
+                        <x-input-error class="mt-2" :messages="$errors->get('stok')" />
                 </div>
 
                 <div>
                     <x-input-label for="image" value="Gambar Barang" class="dark:text-slate-400" />
                     <x-text-input id="image" name="image" type="file"
                         class="mt-1 block w-full dark:bg-slate-800 dark:border-slate-700 rounded-xl p-4" />
+                        <x-input-error class="mt-2" :messages="$errors->get('image')" />
                 </div>
 
                 <div class="mt-8 flex justify-end gap-3">
